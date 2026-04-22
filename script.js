@@ -4,20 +4,22 @@ const operators = document.querySelector('.operators');
 const equalSign = document.querySelector('.equals');
 let currentNumber = '';
 let operatorClicked = false;
-let equalSignClicked = false;
 let a = 0;
 let b = 0;
 let operator = '';
 numbers.addEventListener('click', (e) => {
     if(e.target.classList.contains('number')){
-        if(operatorClicked === true){
-            currentNumber = currentNumber + e.target.textContent;
-            display.textContent = display.textContent + " " + currentNumber;
-        }else if(operatorClicked !== true){
+        if(operatorClicked !== true){
             currentNumber = currentNumber + e.target.textContent;
             display.textContent = currentNumber;
         }
-    }    
+        else if(operatorClicked === true){
+            currentNumber = currentNumber + e.target.textContent;
+            display.textContent = display.textContent + " " + currentNumber;
+        }
+        
+        
+    }
 
 })
 
@@ -31,11 +33,9 @@ operators.addEventListener('click', (e) => {
     currentNumber = '';
 })
 equalSign.addEventListener('click', (e) => {
-    equalSignClicked = true;
-    b = currentNumber;
+    
     currentNumber = '';
-
-    display.textContent = operatorFun(operator, Number(a), Number(b));
+    display.textContent = display.textContent + " " + e.target.textContent + " " + operatorFun(operator, Number(a), Number(b));
 })
 
 function add(a, b){
