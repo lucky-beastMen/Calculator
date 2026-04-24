@@ -5,14 +5,17 @@ const equalSign = document.querySelector('.equals');
 let currentNumber = '';
 let operatorClicked = false;
 let equalSignClicked = false;
+let currentDisplayedNumber = ''
 let a = 0;
 let b = 0;
 let operator = '';
 numbers.addEventListener('click', (e) => {
     if(e.target.classList.contains('number')){
         if(operatorClicked === true){
-            currentNumber = currentNumber + e.target.textContent;
-            display.textContent = display.textContent + " " + currentNumber;
+            currentDisplayedNumber = e.target.textContent;
+            currentNumber = (currentNumber || '') + (currentDisplayedNumber);
+            display.textContent = display.textContent + currentDisplayedNumber;
+            
         }else if(operatorClicked !== true){
             currentNumber = currentNumber + e.target.textContent;
             display.textContent = currentNumber;
@@ -22,17 +25,21 @@ numbers.addEventListener('click', (e) => {
 })
 
 operators.addEventListener('click', (e) => {
-    operatorClicked = true;
+    
     if(e.target.textContent !== "="){
+        operatorClicked = true;
         display.textContent = display.textContent + " " + e.target.textContent;
+        a = currentNumber;
+        operator = e.target.textContent;
+        currentNumber = '';
     }
-    a = currentNumber;
-    operator = e.target.textContent;
-    currentNumber = '';
+
 })
 equalSign.addEventListener('click', (e) => {
     equalSignClicked = true;
     b = currentNumber;
+    console.log(b);
+    
     currentNumber = '';
 
     display.textContent = operatorFun(operator, Number(a), Number(b));
