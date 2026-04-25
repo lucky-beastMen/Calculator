@@ -63,8 +63,16 @@ numbers.addEventListener('click', (e) => {
 })
 
 operators.addEventListener('click', (e) => {
-    
-    if(e.target.classList.contains('operators') === false){
+    if(e.target.classList.contains('Clear')){
+        a = display.textContent;
+        b = 0;
+        display.textContent = 0;
+        currentNumber = '';
+        currentDisplayedNumber = '';
+        operatorClicked = false;
+        dotClicked = false;
+    }
+    else if(!e.target.classList.contains('operators') && !display.textContent.endsWith('.')){
         if(lastInput == 'operator'){
             let arr = display.textContent.split('');
             for(let value of arr){
@@ -87,12 +95,8 @@ operators.addEventListener('click', (e) => {
         }else if(operatorClicked === true && e.target.textContent !== "=" && e.target.textContent !== 'Clear' ){
             operatorClicked = true;
             dotClicked = false;
-            if(lastInput == 'equals'){
-                display.textContent = display.textContent + " " +e.target.textContent;
-            }
-            else{
-                display.textContent = display.textContent + e.target.textContent;
-            }
+            
+            display.textContent = display.textContent + " " + e.target.textContent;
             a = operatorFun(operator, Number(a), Number(b));
             operator = e.target.textContent;
             b = 0;
@@ -101,15 +105,13 @@ operators.addEventListener('click', (e) => {
         }else if(e.target.textContent === "="){
             display.textContent = operatorFun(operator, Number(a), Number(b));
             lastInput = 'equals';
-            dotClicked = false;
-        }else if(e.target.textContent == "Clear"){
-            a = display.textContent;
-            b = 0;
-            display.textContent = 0;
-            currentNumber = '';
-            currentDisplayedNumber = '';
-            operatorClicked = false;
-            dotClicked = false;
+            if(!display.textContent.includes('.')){
+                console.log(display.textContent);
+                
+                dotClicked = false;
+            }else if(display.textContent.includes('.')){
+                dotClicked = true;
+            }
         }
     }
     
