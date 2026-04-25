@@ -10,6 +10,15 @@ let b = 0;
 let operator = '';
 numbers.addEventListener('click', (e) => {
     if(e.target.classList.contains('number')){
+        if(display.textContent === "Can't divide by 0 :))"){
+            display.textContent == '';
+            a = display.textContent;
+            b = 0;
+            display.textContent = 0;
+            currentNumber = '';
+            currentDisplayedNumber = '';
+            operatorClicked = false;
+        }
         if(operatorClicked !== true){
             currentNumber = currentNumber + e.target.textContent;
             display.textContent = currentNumber;
@@ -19,7 +28,6 @@ numbers.addEventListener('click', (e) => {
             currentNumber = (currentNumber || '') + (currentDisplayedNumber);
             display.textContent = display.textContent + currentDisplayedNumber;
             b = currentNumber;
-            
         }
         
     } 
@@ -35,18 +43,20 @@ operators.addEventListener('click', (e) => {
         operator = e.target.textContent;
         currentNumber = '';
     }else if(operatorClicked === true && e.target.textContent !== "=" && e.target.textContent !== 'Clear' ){
-
+        
         operatorClicked = true;
         display.textContent = display.textContent + e.target.textContent;
         a = operatorFun(operator, Number(a), Number(b));
-        operator = e.target.textContent;
+        console.log(a, b);
         
+        operator = e.target.textContent;
         b = 0;
         
         currentNumber = '';
     }else if(e.target.textContent === "="){
-        
         display.textContent = operatorFun(operator, Number(a), Number(b));
+        console.log(a, b);
+        
     }else if(e.target.textContent == "Clear"){
         a = display.textContent;
         b = 0;
@@ -67,7 +77,11 @@ function operatorFun(opp, a, b){
     }else if(opp == "*"){
         return a * b;
     }else if(opp == "/"){
-        return (a/b).toFixed(4);
+        if(b !== 0){
+            return (a/b).toFixed(4)
+        }else if(b === 0){
+            return "Can't divide by 0 :))";
+        }
     }else{
         return "Something went wrong";
     }
