@@ -20,7 +20,14 @@ numbers.addEventListener('click', (e) => {
             currentDisplayedNumber = '';
             operatorClicked = false;
         }
-        
+        if(lastInput == 'equals'){
+            a = 0;
+            b = 0;
+            display.textContent = 0;
+            currentNumber = '';
+            currentDisplayedNumber = '';
+            operatorClicked = false;
+        }
         if(operatorClicked !== true){
             currentNumber = currentNumber + e.target.textContent;
             display.textContent = currentNumber;
@@ -39,44 +46,48 @@ numbers.addEventListener('click', (e) => {
 })
 
 operators.addEventListener('click', (e) => {
-    if(lastInput == 'operator'){
-        let arr = display.textContent.split('');
-        for(let value of arr){
-            if(value == operator){
-                let oppIndex = arr.indexOf(value);
-                arr[oppIndex] = e.target.textContent;
+    
+    if(e.target.classList.contains('operators') === false){
+        if(lastInput == 'operator'){
+            let arr = display.textContent.split('');
+            for(let value of arr){
+                if(value == operator){
+                    let oppIndex = arr.indexOf(value);
+                    arr[oppIndex] = e.target.textContent;
+                }
             }
+            display.textContent = arr.join('');
+            return (operator = e.target.textContent);
         }
-        display.textContent = arr.join(' ');
-        return (operator = e.target.textContent);
-    }
-    if(e.target.textContent !== "=" && e.target.textContent !== 'Clear' && operatorClicked === false ){
-        operatorClicked = true;
-        display.textContent = display.textContent + " " + e.target.textContent;
-        a = currentNumber;
-        operator = e.target.textContent;
-        currentNumber = '';
-        lastInput = 'operator';
-    }else if(operatorClicked === true && e.target.textContent !== "=" && e.target.textContent !== 'Clear' ){
-        operatorClicked = true;
-        display.textContent = display.textContent + e.target.textContent;
-        a = operatorFun(operator, Number(a), Number(b));
-        operator = e.target.textContent;
-        b = 0;
-        lastInput = 'operator';
-        currentNumber = '';
-    }else if(e.target.textContent === "="){
-        display.textContent = operatorFun(operator, Number(a), Number(b));
-        lastInput = 'equals';
-    }else if(e.target.textContent == "Clear"){
-        a = display.textContent;
-        b = 0;
-        display.textContent = 0;
-        currentNumber = '';
-        currentDisplayedNumber = '';
-        operatorClicked = false;
+        if(e.target.textContent !== "=" && e.target.textContent !== 'Clear' && operatorClicked === false ){
+            operatorClicked = true;
+            display.textContent = display.textContent + " " + e.target.textContent;
+            a = currentNumber;
+            operator = e.target.textContent;
+            currentNumber = '';
+            lastInput = 'operator';
+        }else if(operatorClicked === true && e.target.textContent !== "=" && e.target.textContent !== 'Clear' ){
+            operatorClicked = true;
+            display.textContent = display.textContent + e.target.textContent;
+            a = operatorFun(operator, Number(a), Number(b));
+            operator = e.target.textContent;
+            b = 0;
+            lastInput = 'operator';
+            currentNumber = '';
+        }else if(e.target.textContent === "="){
+            display.textContent = operatorFun(operator, Number(a), Number(b));
+            lastInput = 'equals';
+        }else if(e.target.textContent == "Clear"){
+            a = display.textContent;
+            b = 0;
+            display.textContent = 0;
+            currentNumber = '';
+            currentDisplayedNumber = '';
+            operatorClicked = false;
 
+        }
     }
+    
 
 })
 
