@@ -1,7 +1,3 @@
-let str = 'kaleb'
-if(str == 'kaleb'){
-    console.log(1);
-    
-}if(str == 'kaleb'){
-    console.log(2);
-}
+let str = '0';
+let b = (str) ? true : false
+console.log(b);
