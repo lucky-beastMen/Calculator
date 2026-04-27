@@ -10,33 +10,39 @@
 <body>
     <div class="container">
         <div class="display">
-            <p>0</p>
+            <div class="calculation-display">
+                <p class="calculation">0</p>
+            </div>
+            <div class="result-display">
+                <p class="result"></p>
+            </div>
         </div>
         <div class="non-display">
-            <div class="numbers">
-                <button class="number">9</button>
-                <button class="number">8</button>
-                <button class="number">7</button>
-                <button class="number">6</button>
-                <button class="number">5</button>
-                <button class="number">4</button>
-                <button class="number">3</button>
-                <button class="number">2</button>
-                <button class="number">1</button>
-                <button class="number" style="width: 150px; border-radius: 20px;">0</button>
-                <button class="dot">.</button>
-            </div>
-            <div class="operators">
-                <button class="plus">+</button>
-                <button class="minus">-</button>
-                <button class="multiply">*</button>
-                <button class="divide">/</button>
-                <button class="equals">=</button>
-                <button class="Clear" style="font-size: medium;">Clear</button>
-                
-            </div>
-            
+            <button class="clear">AC</button>
+            <button class="delete">⌫</button>
+            <button class="operator power">%</button>
+            <button class="operator divide">÷</button>
+
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator add">+</button>
+
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="operator subtract">-</button>
+
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="operator multiply">×</button>
+
+            <button class="number zero">0</button>
+            <button class="decimal">.</button>
+            <button style="width: 130px; border-radius: 20px;" class = 'operator equals'>=</button>            
         </div>
     </div>
+    
 </body>
 </html>
