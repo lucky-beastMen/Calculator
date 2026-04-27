@@ -1,3 +1,10 @@
-let str = '0';
-let b = (str) ? true : false
-console.log(b);
+let str = '1 + 1';
+for (let value of str){
+    if(value >= '0' && value <= '9'){
+        console.log('num');
+        
+    }else{
+        console.log('idk');
+        
+    }
+}
