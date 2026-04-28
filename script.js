@@ -3,6 +3,7 @@ let calculation = document.querySelector('.calculation');
 let result = document.querySelector('.result');
 let buttons = document.querySelector('.non-display');
 let dotClicked = false;
+let tokens;
 buttons.addEventListener('click', (e) => {
     
     if(!e.target.classList.contains('non-display')){
@@ -11,20 +12,32 @@ buttons.addEventListener('click', (e) => {
         }else if(e.target.classList.contains('decimal') && dotClicked == false){
             calculation.textContent = calculation.textContent + e.target.textContent;
             dotClicked = true;
-        }else if(e.target.classList.contains('operator') && ["x", "÷", "+", "-"].some(op => calculation.textContent.endsWith(op))){
-            calculation.textContent = calculation.textContent;
         }else if(e.target.classList.contains('operator') && e.target.textContent !== '='){
-            calculation.textContent = calculation.textContent + e.target.textContent
+            if(["×", "÷", "+", "-"].some(op => calculation.textContent.endsWith(op))){
+                console.log(typeof(calculation.textContent));
+                
+                calculation.textContent = calculation.textContent.slice(0, -1) + e.target.textContent;
+            }else if(["×", "÷", "+", "-"].some(op => calculation.textContent.includes(op))){
+
+                tokens = tokenize(calculation.textContent);
+                calculation.textContent = calculate(tokens);
+                calculation.textContent = calculation.textContent + e.target.textContent;
+
+            }else{
+                calculation.textContent = calculation.textContent + e.target.textContent;
+            }
+            
             dotClicked = false;
         }else if(e.target.textContent === '='){
-            let tokens = tokenize(calculation.textContent);
+            tokens = tokenize(calculation.textContent);
             console.log(tokens);
             
             result.textContent = calculate(tokens);
             
         }else if(e.target.textContent === 'AC'){
             calculation.textContent = '0';
-            result.textContent = ''
+            result.textContent = '';
+            dotClicked = false;
         }else if(e.target.textContent === '⌫'){
             calculation.textContent = calculation.textContent.slice(0, -1);
         }else if(calculation.textContent !== '0' && e.target.classList.contains('number')){
@@ -64,7 +77,12 @@ function calculate(expression){
         if(expression[i] == '*'){
             return Number(expression[i - 1]) * Number(expression[i + 1]); 
         }else if(expression[i] == '/'){
-             return Number(expression[i - 1]) / Number(expression[i + 1]); 
+             let quotient = Number(expression[i - 1]) / Number(expression[i + 1]);
+             if(quotient % 1 !== 0){
+                return quotient.toFixed(4);
+             }else{
+                return quotient;
+             }
         }else if(expression[i] == '+'){
              return Number(expression[i - 1]) + Number(expression[i + 1]); 
         }else if(expression[i] == '-'){
