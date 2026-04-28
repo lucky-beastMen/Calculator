@@ -17,12 +17,6 @@ buttons.addEventListener('click', (e) => {
                 console.log(typeof(calculation.textContent));
                 
                 calculation.textContent = calculation.textContent.slice(0, -1) + e.target.textContent;
-            }else if(["×", "÷", "+", "-"].some(op => calculation.textContent.includes(op))){
-
-                tokens = tokenize(calculation.textContent);
-                calculation.textContent = calculate(tokens);
-                calculation.textContent = calculation.textContent + e.target.textContent;
-
             }else{
                 calculation.textContent = calculation.textContent + e.target.textContent;
             }
@@ -30,7 +24,7 @@ buttons.addEventListener('click', (e) => {
             dotClicked = false;
         }else if(e.target.textContent === '='){
             tokens = tokenize(calculation.textContent);
-            console.log(tokens);
+            
             
             result.textContent = calculate(tokens);
             
@@ -70,26 +64,36 @@ function tokenize(calculationExpression){
     return tokens;
   
 }
-function calculate(expression){
-    for(let i = 0; i < expression.length; i++){
-        
-        
-        if(expression[i] == '*'){
-            return Number(expression[i - 1]) * Number(expression[i + 1]); 
-        }else if(expression[i] == '/'){
-             let quotient = Number(expression[i - 1]) / Number(expression[i + 1]);
-             if(quotient % 1 !== 0){
-                return quotient.toFixed(4);
-             }else{
-                return quotient;
-             }
-        }else if(expression[i] == '+'){
-             return Number(expression[i - 1]) + Number(expression[i + 1]); 
-        }else if(expression[i] == '-'){
-             return Number(expression[i - 1]) - Number(expression[i + 1]); 
-        }else if(expression[i] == '%'){
-             return Number(expression[i - 1]) % Number(expression[i + 1]); 
+function calculate(arr){
+    while(!(arr.length == 1)){
+    
+        if(arr.includes('*')){
+            let index = arr.indexOf('*');
+            let answer = Number(arr[index - 1]) * Number(arr[index + 1]);
+            
+            arr.splice((index-1), 3, answer);
+            
+        }else if(arr.includes('/')){
+            let index = arr.indexOf('/');
+            let answer = Number(arr[index - 1]) / Number(arr[index + 1]);
+            
+            arr.splice((index-1), 3, answer);
+        }else if(arr.includes('+')){
+            let index = arr.indexOf('+');
+            let answer = Number(arr[index - 1]) + Number(arr[index + 1]);
+            
+            arr.splice((index-1), 3, answer);
+            
+        }else if(arr.includes('-')){
+            let index = arr.indexOf('-');
+            let answer = Number(arr[index - 1]) - Number(arr[index + 1]);
+            
+            arr.splice((index-1), 3, answer);
         }
     }
-    
+    let answer = arr[0];
+    if(answer % 1 !== 0){
+        answer =  answer.toFixed(4);
+    }
+    return answer;
 }

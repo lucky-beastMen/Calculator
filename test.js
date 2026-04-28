@@ -1,4 +1,37 @@
-let num = 2.3;
-let isDecimal = num % 1 !== 0; // true if has fractional part
+let arr = [];
 
-console.log(num % 1); // true → 2.3 is not a whole number
+function calculate(arr){
+    while(!(arr.length == 1)){
+    
+        if(arr.includes('*')){
+            let index = arr.indexOf('*');
+            let answer = arr[index - 1] * arr[index + 1];
+            
+            arr.splice((index-1), 3, answer);
+            
+        }else if(arr.includes('/')){
+            let index = arr.indexOf('/');
+            let answer = arr[index - 1] / arr[index + 1];
+            
+            arr.splice((index-1), 3, answer);
+        }else if(arr.includes('+')){
+            let index = arr.indexOf('+');
+            let answer = arr[index - 1] + arr[index + 1];
+            
+            arr.splice((index-1), 3, answer);
+            
+        }else if(arr.includes('-')){
+            let index = arr.indexOf('-');
+            let answer = arr[index - 1] - arr[index + 1];
+            
+            arr.splice((index-1), 3, answer);
+        }
+    }
+    let answer = arr[0];
+    if(answer % 1 !== 0){
+        answer =  answer.toFixed(4);
+    }
+    return answer;
+}
+
+console.log(calculate(arr));
