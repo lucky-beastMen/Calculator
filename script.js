@@ -9,6 +9,8 @@ buttons.addEventListener('click', (e) => {
     if(!e.target.classList.contains('non-display')){
         if(calculation.textContent === '0' && e.target.classList.contains('number') ){
             calculation.textContent = e.target.textContent;
+        }else if(result.textContent.trim() !== '' && e.target.classList.contains('operator') && e.target.textContent !== '='){
+            calculation.textContent = result.textContent + e.target.textContent;
         }else if(e.target.classList.contains('decimal') && dotClicked == false){
             calculation.textContent = calculation.textContent + e.target.textContent;
             dotClicked = true;
