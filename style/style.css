@@ -69,4 +69,12 @@ body {
     font-size: 20px;
     background-color: #616161;
     color: #DFDFDF;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.non-display > button:hover{
+    background-color: rgb(59, 140, 215);
+    cursor: pointer;
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    
 }
